@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import FileUploader from './components/FileUploader';
+import TranscriptionDisplay from './components/TranscriptDisplay';
 
 function App() {
+  const [transcript, setTranscript] = useState('');
+
+  const handleFileUpload = (filePath) => {
+    window.electron.send('process-file', filePath);  // Using the API exposed by preload.js
+  };
+
+  window.electron.on('transcription-complete', (transcript) => {
+    setTranscript(transcript);
+  });
+
+  window.electron.on('transcription-error', (error) => {
+    setTranscript(`Error: ${error}`);
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Video/Audio Transcription</h1>
+      <FileUploader onFileUpload={handleFileUpload} />
+      <TranscriptionDisplay transcript={transcript} />
     </div>
   );
 }
