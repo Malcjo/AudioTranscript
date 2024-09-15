@@ -10,10 +10,12 @@ function App() {
   };
 
   window.electron.on('transcription-complete', (transcript) => {
+    console.log(transcript)
     setTranscript(transcript);
   });
 
   window.electron.on('transcription-error', (error) => {
+    console.log(`Error: ${error}`)
     setTranscript(`Error: ${error}`);
   });
 

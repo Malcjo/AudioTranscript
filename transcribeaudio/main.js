@@ -31,18 +31,24 @@ function createWindow() {
 app.on('ready', createWindow);
 
 ipcMain.on('process-file', async (event, filePath) => {
+  console.log("File received for processing:", filePath);  // Added logging
+
   try {
     const audioFile = await ffmpeg.extractAudio(filePath);
+    console.log("Audio file extracted:", audioFile);  // Added logging
 
     // Call the Python script for transcription
     execFile('python', ['./backend/transcribe.py', audioFile], (error, stdout, stderr) => {
       if (error) {
+        console.log("Error during transcription:", error);  // Added logging
         event.reply('transcription-error', error.message);
         return;
       }
+      console.log("Transcription complete, output:", stdout);  // Added logging
       event.reply('transcription-complete', stdout);
     });
   } catch (error) {
+    console.log("Error during file processing:", error);  // Added logging
     event.reply('transcription-error', error.message);
   }
 });
