@@ -5,20 +5,20 @@ import json
 import wave
 
 def transcribe_audio(audio_file):
-    print("Starting transcription for:", audio_file)  # Added logging
-
+    print("Starting transcription for:", audio_file, file=sys.stderr)
+    print(file=sys.stderr)  # New line added after the log, printed to stderr
     if not os.path.exists("model"):
         print("Please download the Vosk model and place it in the 'model' directory.")
         exit(1)
 
     wf = wave.open(audio_file, "rb")
-    print("Opened audio file:", audio_file)  # Added logging
+    #print("Opened audio file:", audio_file)  # Added logging
 
     if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getframerate() not in [8000, 16000, 32000, 44100, 48000]:
         print("Audio file must be WAV format mono PCM.")
         exit(1)
 
-    print("Loading Vosk model...")  # Added logging
+    #print("Loading Vosk model...")  # Added logging
     model = Model("model")
     rec = KaldiRecognizer(model, wf.getframerate())
 
@@ -35,10 +35,16 @@ def transcribe_audio(audio_file):
     result = json.loads(rec.FinalResult())
     transcript += result['text']
     
-    print("Transcription complete.")  # Added logging
+    #print("Transcription complete.")  # Added logging
     return transcript
 
 if __name__ == "__main__":
     audio_file = sys.argv[1]
     transcript = transcribe_audio(audio_file)
     print(transcript)
+        # Remove the output.wav file after displaying the transcript
+    try:
+        os.remove(audio_file)
+        #print(f"\nDeleted file: {audio_file}")  # Optional logging
+    except OSError as e:
+        print(f"Error deleting file: {e}")
