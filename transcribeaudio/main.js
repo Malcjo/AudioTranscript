@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const ffmpeg = require('./backend/ffmpeg');
 const { execFile } = require('child_process');
 
@@ -50,5 +51,25 @@ ipcMain.on('process-file', async (event, filePath) => {
   } catch (error) {
     console.log("Error during file processing:", error);  // Added logging
     event.reply('transcription-error', error.message);
+  }
+});
+
+ipcMain.on('save-transcription', async (event, transcriptText) => {
+  // Open the save dialog
+  const { filePath } = await dialog.showSaveDialog({
+    title: 'Save Transcript',
+    defaultPath: 'transcript.txt',
+    filters: [{ name: 'Text Files', extensions: ['txt'] }]
+  });
+
+  if (filePath) {
+    // Write the transcript to the selected file path
+    fs.writeFile(filePath, transcriptText, (err) => {
+      if (err) {
+        console.log("Error saving file:", err);
+      } else {
+        console.log("File saved successfully:", filePath);
+      }
+    });
   }
 });

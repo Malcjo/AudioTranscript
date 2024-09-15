@@ -2,7 +2,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
   send: (channel, data) => {
-    let validChannels = ['process-file'];
+    let validChannels = ['process-file', 'save-transcription'];
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);
     }
