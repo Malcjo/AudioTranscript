@@ -23,8 +23,7 @@ const extractAudio = (inputFile) => {
     console.log(`Running ffmpeg command: ${ffmpegCommand}`);  // Log the command
 
     // Convert the audio to 16-bit PCM mono WAV at 16000 Hz
-    exec(`${ffmpegStatic} -i ${inputFile} -acodec pcm_s16le -ar 16000 -ac 1 ${outputFile}`, (err) => {
-      console.log("running exec iun ffmpeg ");
+    exec(`"${ffmpegStatic}" -i "${inputFile}" -acodec pcm_s16le -ar 16000 -ac 1 "${outputFile}"`, (err) => {
       if (err) {
         console.log("Error during audio extraction:", err);  // Added logging
         reject(err);
