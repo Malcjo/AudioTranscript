@@ -1,4 +1,5 @@
 import React from 'react';
+import '../CSS/TranscriptDisplay.css'; 
 
 function TranscriptionDisplay({ transcript }) {
 
@@ -8,10 +9,12 @@ function TranscriptionDisplay({ transcript }) {
   };
 
   return (
-    <div>
+    <div className="transcript-container">
       <h2>Transcript</h2>
-      <p>{transcript ? transcript : ''}</p>
-      <p>{transcript && <button onClick={handleSave}>Save Transcript</button>}</p>
+      <div>
+        <p>{transcript ? transcript : ''}</p>
+        <p>{transcript && <button onClick={handleSave}>Save Transcript</button>}</p>
+      </div>
     </div>
   );
 }

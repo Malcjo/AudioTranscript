@@ -1,0 +1,44 @@
+/* Style for file uploader container */
+.fileUploader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Custom file input label */
+  .custom-file-upload {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  /* Hide the native file input */
+  .fileUploader input[type="file"] {
+    display: none;
+  }
+  
+  /* Button style for 'Upload and Transcribe' */
+  .fileUploader button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Button hover effect */
+  .fileUploader button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Display the selected file name */
+  .fileUploader p {
+    margin-top: 10px;
+    color: #333;
+  }
+  

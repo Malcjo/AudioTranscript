@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+HCLG.fst filter=lfs diff=lfs merge=lfs -text
+G.carpa filter=lfs diff=lfs merge=lfs -text
+final.raw filter=lfs diff=lfs merge=lfs -text

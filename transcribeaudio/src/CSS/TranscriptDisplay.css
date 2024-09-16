@@ -1,0 +1,64 @@
+/* Centering the transcript container */
+.transcript-container {
+    position : relative;
+    z-index: 1;;
+    width: 60%; /* Set a width for the container */
+    max-width: 800px; /* Ensure it doesn’t get too wide */
+    margin: 50px auto; /* Center it horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+
+    background-color: #fafafa;
+    background-image: linear-gradient(to bottom, #fafafa 50px, #eee 50px); /* Paper effect with lines */
+    background-size: 100% 50px; /* Each line spaced 50px apart */
+    background-repeat: repeat-y;
+
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
+    border-radius: 10px; /* Smooth corners */
+}
+
+
+
+/* Style for the heading */
+.transcript-container h2 {
+    color: #333;
+    font-size: 1.5rem;
+    text-align: center; /* Center the title */
+    font-family: 'Georgia', serif; /* Give it a more classic font for the title */
+}
+
+/* Style for the transcript text */
+.transcript-container p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #555;
+    font-family: 'Courier New', Courier, monospace; /* Give the text a "typed" effect */
+    white-space: pre-line; /* Keep the new lines in the text */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* Style for the button */
+.transcript-container button {
+    display: block; /* Ensure it takes up the block space */
+    margin: 20px auto 0; /* Center the button and give it top space */
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the button */
+.transcript-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Shadow and border styling for a "paper" look */
+.transcript-container {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

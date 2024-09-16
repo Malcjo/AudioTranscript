@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FileUploader from './components/FileUploader';
 import TranscriptionDisplay from './components/TranscriptDisplay';
+import './CSS/App.css';
 
 function App() {
   const [transcript, setTranscript] = useState('');
@@ -21,8 +22,9 @@ function App() {
   });
 
   return (
-    <div>
+    <div className = "Main-Container">
       <h1>Video/Audio Transcription</h1>
+      <br/>
       <FileUploader onFileUpload={handleFileUpload} />
       {error ? <p>{error}</p> : <TranscriptionDisplay transcript={transcript} />}
     </div>
