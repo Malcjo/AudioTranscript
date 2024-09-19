@@ -8,6 +8,7 @@ function App() {
   const [error, setError] = useState('');
 
   const handleFileUpload = (filePath) => {
+    console.log("sending file path: ", filePath);
     window.electron.send('process-file', filePath);  // Send file to Electron
   };
 
@@ -19,6 +20,7 @@ function App() {
   // Listen for any errors during transcription and set the error state
   window.electron.on('transcription-error', (error) => {
     setError(`Error: ${error}`);
+    console.log(error);
   });
 
   return (

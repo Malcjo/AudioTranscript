@@ -17,8 +17,23 @@ function createWindow() {
     }
   });
 
+  /*
+  const startURL = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:3000'
+  : path.join('file://', __dirname, 'build', 'index.html');
+  */
+ // const startURL = path.join('file://', 'build', 'index.html');
+  
+/*
+  const startURL = app.isPackaged
+    ? path.join('file://', __dirname, 'build', 'index.html')
+    : 'http://localhost:3000';
+
+  */
+  const startURL = path.join(app.getAppPath(), 'build', 'index.html');
+  
   //mainWindow.loadURL('http://localhost:3000');
-  mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+  //mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
   /*
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:3000');
@@ -26,12 +41,25 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
   }
   */
+ mainWindow.loadURL(startURL);
   mainWindow.webContents.openDevTools();
 }
 
 app.on('ready', createWindow);
 
+ipcMain.on('open-file-dialog', async (event) => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [{ name: 'Media Files', extensions: ['mp3', 'wav', 'm4a', 'mp4'] }]
+  });
+
+  if (!canceled && filePaths.length > 0) {
+    event.reply('selected-file', filePaths[0]); // Send selected file path to the renderer process
+  }
+});
+
 ipcMain.on('process-file', async (event, filePath) => {
+  
   console.log("File received for processing:", filePath);  // Added logging
 
   try {
